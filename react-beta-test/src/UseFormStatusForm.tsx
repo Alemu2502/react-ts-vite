@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { startTransition, useState } from 'react';
 import { useFormStatus } from 'react-dom'; // Make sure this is supported in your setup (React 18+)
 import './App.css';
 
@@ -6,6 +6,8 @@ function UseFormStatusForm() {
   const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
   const [input, setInput] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+
 
   const simulateBotResponse = (): Promise<void> => {
     return new Promise((resolve) => {
@@ -23,12 +25,17 @@ function UseFormStatusForm() {
   const submitAction = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission behavior
     setInput('');
-
+    setPending(true);
     try {
       await simulateBotResponse();
     } catch (error) {
       setError('Failed to simulate bot response');
+    } finally {
+      startTransition(()=>{
+        setPending(false);
+      });
     }
+   
   };
 
   return (
@@ -48,20 +55,11 @@ function UseFormStatusForm() {
           placeholder="Type a message"
           required
         />
-        <button type="submit">
-          <Pending>Send</Pending>
-        </button>
+        <button type="submit" disabled={pending}>{pending?'sending...':'send'}</button>
         {error && <p className="error">{error}</p>}
       </form>
     </>
-  );
+   );
 }
 
 export default UseFormStatusForm;
-
-// Pending Component
-function Pending({ children }: { children: React.ReactNode }) {
-  const { pending } = useFormStatus(); // Use form's pending status from the server
-
-  return <>{pending ? 'Sending...' : children}</>;
-}

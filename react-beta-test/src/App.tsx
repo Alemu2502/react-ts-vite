@@ -8,6 +8,8 @@ import UseFormStatusForm from './UseFormStatusForm';
 import UseActionStateForm from './UseActionStateForm';
 import UseOptimisticForm from './UseOptimisticForm';
 import useStateExample from './useState.tsx';
+import {useCount} from './useStateCount.tsx';
+import {Counter} from './useReducer.tsx'
 import './App.css';
 
 const formComponents = [
@@ -19,6 +21,8 @@ const formComponents = [
   { label: 'UseActionState Form', component: UseActionStateForm },
   { label: 'UseOptimistic Form', component: UseOptimisticForm },
   { label: 'useState', component: useStateExample },
+   { label: 'useStatCount', component: useCount },
+    { label: 'useReducerCount', component: Counter },
 ];
 
 function App() {
@@ -34,6 +38,7 @@ function App() {
         ))}
       </ol>
     );
+    
   };
 
   const { component: FormComponent } = formComponents[formNumber - 1] ?? {};
@@ -49,6 +54,7 @@ function App() {
       <FormComponent />
     </div>
   );
+  
 }
 
 export default App;

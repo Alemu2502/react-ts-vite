@@ -18,7 +18,7 @@ function UseTransitionForm() {
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: input, sender: 'user' },
-          { text: 'Hello, user!', sender: 'bot' },
+          { text: 'Hello, Alex!', sender: 'bot' },
         ]);
         resolve();
       }, 3000);

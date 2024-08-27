@@ -1,8 +1,13 @@
 import { useState, startTransition } from 'react';
 import './App.css';
 
+
+type message ={
+  text: string,
+  sender: 'user' | 'bot'
+}
 function UseActionStateForm() {
-  const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
+  const [messages, setMessages] = useState<message[]>([]);
   const [input, setInput] = useState('');
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);

@@ -21,7 +21,7 @@ function UseTransitionForm() {
           { text: 'Hello, user!', sender: 'bot' },
         ]);
         resolve();
-      }, 3000);
+      }, 5000);
     });
   };
 
